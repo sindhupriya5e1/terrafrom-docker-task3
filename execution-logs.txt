@@ -1,0 +1,42 @@
+Terraform Docker Task 3 - Execution Logs
+
+1. Docker verification
+docker version
+
+2. Terraform initialization
+terraform init
+
+3. Terraform formatting
+terraform fmt
+
+4. Terraform validation
+terraform validate
+Success! The configuration is valid.
+
+5. Terraform plan
+terraform plan
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+6. Terraform apply
+terraform apply
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+7. Docker container verification
+docker ps
+Nginx container running on port 8080.
+
+8. Terraform state verification
+terraform state list
+docker_container.nginx
+docker_image.nginx
+
+9. Terraform cleanup
+terraform destroy
+Destroy complete! Resources: 2 destroyed.
+
+10. Final verification
+terraform state list
+No resources listed.
+
+docker ps
+No containers running.
