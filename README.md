@@ -109,9 +109,9 @@ The Docker container was successfully provisioned using Terraform.
 
 ### Screenshot
 
-![Terraform Docker Container](./04-terraform-docker-terraform.jpg)
+![Terraform Docker Container](./04-terraform-docker&terraform.jpg)
 
----
+----
 
 ## 5. Terraform Destroy
 
@@ -127,7 +127,7 @@ After confirmation, Terraform successfully removed the resources that it had cre
 
 ### Screenshot
 
-![Terraform Destroy](./05-terraform-destroy.jpg)
+![Terraform Destroy](./05-terraform-destory.jpg)
 
 ---
 
@@ -232,11 +232,11 @@ Through this project, I learned:
 
 ## Terraform Docker
 
-![Terraform Docker](./04-terraform-docker-terraform.jpg)
+![Terraform Docker](./04-terraform-docker&terraform.jpg)
 
 ## Terraform Destroy
 
-![Terraform Destroy](./05-terraform-destroy.jpg)
+![Terraform Destroy](./05-terraform-destory.jpg)
 
 ---
 
