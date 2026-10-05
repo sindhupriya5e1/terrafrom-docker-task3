@@ -109,7 +109,7 @@ The Docker container was successfully provisioned using Terraform.
 
 ### Screenshot
 
-![Terraform Docker Container](./04-terraform-docker%26terraform.jpg)
+![Terraform Docker Container](./04-terraform-docker-terraform.jpg)
 
 ----
 
@@ -232,7 +232,7 @@ Through this project, I learned:
 
 ## Terraform Docker
 
-![Terraform Docker](./04-terraform-docker%26terraform.jpg)
+![Terraform Docker](./04-terraform-docker-terraform.jpg)
 
 ## Terraform Destroy
 
