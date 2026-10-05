@@ -1,172 +1,87 @@
-# 🚀 Terraform Docker – Task 3
+# Terraform Docker Project
 
-## 📌 Task 3: Infrastructure as Code with Terraform
+## 📌 Task 3 – Provision Docker Container using Terraform
 
-### 🎯 Objective
+This project demonstrates how to use **Terraform** to provision and manage a Docker container using **Infrastructure as Code (IaC)**.
 
-The objective of this task is to use **Terraform Infrastructure as Code (IaC)** to provision and manage an **Nginx Docker container** locally.
-
-In this task, Terraform is used to:
-
-* Configure the Docker provider
-* Pull the Nginx Docker image
-* Create an Nginx container
-* Map the Docker container port `80` to host port `8082`
-* Verify the running container
-* Access the Nginx application through a web browser
+In this task, Terraform is configured with the Docker provider to create and manage a Docker container. The complete Terraform workflow including initialization, validation, planning, applying and destroying the infrastructure was performed successfully.
 
 ---
 
 ## 🛠️ Technologies Used
 
-* **Terraform**
-* **Docker**
-* **Docker Desktop**
-* **Nginx**
-* **PowerShell**
-* **Windows**
+- Terraform
+- Docker
+- Docker Provider
+- Nginx
+- Git
+- GitHub
+- Visual Studio Code
 
 ---
 
-# 📁 Project Structure
+## 📂 Project Files
 
 ```text
-terraform-docker/
+terraform-docker-task3/
 │
-├── main.tf
-├── README.md
-├── execution-logs.txt
-├── .terraform.lock.hcl
 ├── .gitignore
-└── screenshots/
+├── .terraform.lock.hcl
+├── 01-terraform-init.validate.jpg
+├── 02-terraform-plan.jpg
+├── 03-terraform-apply.jpg
+├── 04-terraform-docker-terraform.jpg
+├── 05-terraform-destroy.jpg
+└── README.md
 ```
 
 ---
 
-# 🔹 Step 1: Install and Verify Docker
+# 🚀 Project Implementation
 
-First, Docker Desktop was installed and started.
+## 1. Terraform Initialization and Validation
 
-Docker installation was verified using:
-
-```bash
-docker --version
-```
-
-Docker was successfully available on the system.
-
----
-
-# 🔹 Step 2: Install and Verify Terraform
-
-Terraform was installed and verified using:
-
-```bash
-terraform --version
-```
-
-Terraform was successfully installed and ready to use.
-
----
-
-# 🔹 Step 3: Create the Terraform Project
-
-A project folder named:
-
-```text
-terraform-docker
-```
-
-was created.
-
-The Terraform configuration file was created as:
-
-```text
-main.tf
-```
-
----
-
-# 🔹 Step 4: Configure Docker Provider
-
-The `main.tf` file was created to configure Terraform with Docker.
-
-The configuration defines:
-
-* Docker provider
-* Nginx Docker image
-* Nginx container
-* Port mapping
-
-The Nginx container exposes:
-
-```text
-Host Port:      8082
-Container Port: 80
-```
-
-Therefore, the application can be accessed using:
-
-```text
-http://localhost:8082
-```
-
----
-
-# 🔹 Step 5: Initialize Terraform
-
-Terraform was initialized using:
+First, the Terraform project was initialized using:
 
 ```bash
 terraform init
 ```
 
-This downloaded and initialized the required Docker provider.
+Terraform downloaded and initialized the required provider and prepared the working directory.
 
-### Result
-
-```text
-Terraform initialization: SUCCESS
-```
-
----
-
-# 🔹 Step 6: Validate Terraform Configuration
-
-The Terraform configuration was checked using:
+After initialization, the Terraform configuration was validated using:
 
 ```bash
 terraform validate
 ```
 
-Expected output:
+The configuration was successfully validated.
 
-```text
-Success! The configuration is valid.
-```
+### Screenshot
 
-This confirmed that the Terraform configuration was syntactically correct.
+![Terraform Init and Validate](./01-terraform-init.validate.jpg)
 
 ---
 
-# 🔹 Step 7: Create Terraform Execution Plan
+## 2. Terraform Plan
 
-Next, the infrastructure plan was generated using:
+After successful initialization and validation, the Terraform execution plan was generated using:
 
 ```bash
 terraform plan
 ```
 
-Terraform displayed the resources that would be created.
+The `terraform plan` command shows the changes Terraform is going to make before actually applying them.
 
-The planned resources included:
+It helps to verify the infrastructure configuration before deployment.
 
-* Nginx Docker image
-* Nginx Docker container
+### Screenshot
+
+![Terraform Plan](./02-terraform-plan.jpg)
 
 ---
 
-# 🔹 Step 8: Apply Terraform Configuration
+## 3. Terraform Apply
 
 The infrastructure was created using:
 
@@ -174,244 +89,175 @@ The infrastructure was created using:
 terraform apply
 ```
 
-Terraform asked for confirmation.
+Terraform displayed the resources that were going to be created and asked for confirmation.
 
-```text
-yes
-```
+After providing confirmation, Terraform successfully created the required Docker resources.
 
-was entered to continue.
+### Screenshot
 
-Terraform then created the Docker infrastructure.
+![Terraform Apply](./03-terraform-apply.jpg)
 
 ---
 
-# 🔹 Step 9: Port Conflict Issue
+## 4. Docker Container Verification
 
-During the initial deployment, host port `8080` was already being used.
+After running `terraform apply`, the Docker container created through Terraform was verified.
 
-The running Docker containers were checked using:
+Docker commands were used to check the container and confirm that the Terraform-managed Docker resource was successfully created and running.
+
+The Docker container was successfully provisioned using Terraform.
+
+### Screenshot
+
+![Terraform Docker Container](./04-terraform-docker-terraform.jpg)
+
+---
+
+## 5. Terraform Destroy
+
+After completing the deployment and verification, the infrastructure was removed using:
 
 ```bash
-docker ps
+terraform destroy
 ```
 
-Port usage was also checked using:
+Terraform displayed the resources that were going to be destroyed and asked for confirmation.
 
-```bash
-netstat -ano | findstr :8080
-```
+After confirmation, Terraform successfully removed the resources that it had created.
 
-Instead of stopping the existing service, the Terraform configuration was modified to use:
+### Screenshot
+
+![Terraform Destroy](./05-terraform-destroy.jpg)
+
+---
+
+# 🔄 Terraform Workflow
+
+The complete workflow followed in this project was:
 
 ```text
-8082
-```
-
-Final port mapping:
-
-```text
-localhost:8082 → Nginx container:80
+Terraform Configuration
+        ↓
+terraform init
+        ↓
+terraform validate
+        ↓
+terraform plan
+        ↓
+terraform apply
+        ↓
+Docker Container Created
+        ↓
+Container Verification
+        ↓
+terraform destroy
 ```
 
 ---
 
-# 🔹 Step 10: Verify Docker Container
+# 📋 Terraform Commands Used
 
-After running Terraform successfully, the running containers were checked using:
-
-```bash
-docker ps
-```
-
-The Terraform-managed container appeared as:
-
-```text
-terraform-nginx
-```
-
-with the port mapping:
-
-```text
-0.0.0.0:8082->80/tcp
-```
-
-This confirmed that the container was running successfully.
-
----
-
-# 🔹 Step 11: Browser Verification
-
-The deployment was finally tested through a web browser.
-
-The following URL was opened:
-
-```text
-http://localhost:8082
-```
-
-The **Nginx Welcome Page** was displayed successfully.
-
-This confirmed that:
-
-* Docker container was running
-* Nginx was running
-* Port mapping was working
-* Terraform deployment was successful
-
----
-
-# 📸 Screenshots
-
-## 1. Terraform Project Setup
-
-Screenshot showing the Terraform project folder and files.
-
-![Project Setup](screenshots/project-setup.png)
-
----
-
-## 2. Terraform Initialization
-
-Screenshot showing:
+### Initialize Terraform
 
 ```bash
 terraform init
 ```
 
-![Terraform Init](screenshots/terraform-init.png)
-
----
-
-## 3. Terraform Validation
-
-Screenshot showing:
+### Validate Configuration
 
 ```bash
 terraform validate
 ```
 
-![Terraform Validate](screenshots/terraform-validate.png)
-
----
-
-## 4. Terraform Plan
-
-Screenshot showing:
+### Generate Execution Plan
 
 ```bash
 terraform plan
 ```
 
-![Terraform Plan](screenshots/terraform-plan.png)
-
----
-
-## 5. Terraform Apply
-
-Screenshot showing:
+### Apply Infrastructure
 
 ```bash
 terraform apply
 ```
 
-![Terraform Apply](screenshots/terraform-apply.png)
-
----
-
-## 6. Docker Container Running
-
-Screenshot showing:
+### Destroy Infrastructure
 
 ```bash
-docker ps
+terraform destroy
 ```
-
-![Docker Container](screenshots/docker-ps.png)
 
 ---
 
-## 7. Nginx Browser Verification
+# 🎯 Objectives Achieved
 
-Screenshot showing the Nginx Welcome Page at:
+- ✅ Terraform was successfully initialized.
+- ✅ Terraform configuration was validated.
+- ✅ Terraform execution plan was generated.
+- ✅ Docker infrastructure was provisioned using Terraform.
+- ✅ Docker container was successfully verified.
+- ✅ Terraform destroy operation was successfully performed.
+- ✅ Complete Infrastructure as Code workflow was implemented.
+
+---
+
+# 💡 Key Learnings
+
+Through this project, I learned:
+
+- Basics of Infrastructure as Code (IaC).
+- Terraform project initialization.
+- Terraform configuration validation.
+- Creating and reviewing an execution plan.
+- Provisioning Docker resources using Terraform.
+- Managing Docker infrastructure through Terraform.
+- Destroying Terraform-managed infrastructure.
+- Using GitHub to document and showcase the project.
+
+---
+
+# 📸 Project Screenshots
+
+## Terraform Init & Validate
+
+![Terraform Init and Validate](./01-terraform-init.validate.jpg)
+
+## Terraform Plan
+
+![Terraform Plan](./02-terraform-plan.jpg)
+
+## Terraform Apply
+
+![Terraform Apply](./03-terraform-apply.jpg)
+
+## Terraform Docker
+
+![Terraform Docker](./04-terraform-docker-terraform.jpg)
+
+## Terraform Destroy
+
+![Terraform Destroy](./05-terraform-destroy.jpg)
+
+---
+
+# 🏁 Conclusion
+
+This project successfully demonstrates the use of **Terraform with Docker** to implement an Infrastructure as Code workflow.
+
+The complete lifecycle was performed successfully:
 
 ```text
-http://localhost:8082
+Initialize → Validate → Plan → Apply → Verify → Destroy
 ```
 
-![Nginx](screenshots/nginx-browser.png)
+This project provided practical experience in using Terraform for automated infrastructure provisioning and management.
 
 ---
 
-# 📊 Final Result
+## 👨‍💻 Project Status
 
-| Step                 | Status       |
-| -------------------- | ------------ |
-| Docker Setup         | ✅ Successful |
-| Terraform Setup      | ✅ Successful |
-| Terraform Init       | ✅ Successful |
-| Terraform Validate   | ✅ Successful |
-| Terraform Plan       | ✅ Successful |
-| Terraform Apply      | ✅ Successful |
-| Docker Container     | ✅ Running    |
-| Nginx Deployment     | ✅ Successful |
-| Browser Verification | ✅ Successful |
+**Status: Completed ✅**
 
----
+**Task: Terraform + Docker**
 
-# 🔄 Complete Workflow
-
-```text
-Create Terraform Project
-          ↓
-Configure Docker Provider
-          ↓
-terraform init
-          ↓
-terraform validate
-          ↓
-terraform plan
-          ↓
-terraform apply
-          ↓
-Docker Nginx Container Created
-          ↓
-Port 8082 → Container Port 80
-          ↓
-docker ps
-          ↓
-Open localhost:8082
-          ↓
-Nginx Welcome Page
-```
-
----
-
-# 🎓 What I Learned
-
-Through this task, I learned how to use **Terraform as an Infrastructure as Code tool** to manage Docker resources.
-
-Key learnings:
-
-* Terraform project initialization
-* Terraform configuration
-* Docker provider configuration
-* Terraform validation
-* Terraform planning
-* Terraform resource provisioning
-* Docker container management
-* Port mapping
-* Troubleshooting port conflicts
-* Verifying infrastructure deployment
-
----
-
-# ✅ Conclusion
-
-Task 3 was successfully completed by provisioning an **Nginx Docker container using Terraform**.
-
-The complete Infrastructure as Code workflow was implemented from configuration to deployment and browser verification.
-
-**Terraform → Docker → Nginx → Port Mapping → Browser Verification**
-
-This task demonstrates the basic practical workflow of using Terraform to declaratively provision and manage containerized infrastructure.
+**Platform: GitHub**
