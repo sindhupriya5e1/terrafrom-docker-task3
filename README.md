@@ -1,284 +1,242 @@
-# Infrastructure as Code (IaC) with Terraform and Docker
+# Terraform Docker Deployment – Task 3
 
-## Project Overview
+## 📌 Project Overview
 
-This project demonstrates the implementation of **Infrastructure as Code (IaC)** using **Terraform and Docker**.
+This project demonstrates how to use **Terraform to provision and manage Docker resources**.
 
-The objective of this task was to use Terraform to automatically provision and manage an **Nginx Docker container** instead of creating and managing the container manually.
+In this task, Terraform is used to:
 
-In this project, Terraform was configured with the **Docker provider** to:
-
-- Download the Nginx Docker image
+- Initialize the Terraform project
+- Validate the Terraform configuration
+- Create an execution plan
+- Pull/create an Nginx Docker image
 - Create an Nginx Docker container
-- Configure port mapping
-- Verify the running container
-- Inspect Terraform-managed resources
-- Destroy the infrastructure using Terraform
-
-The complete Terraform lifecycle was successfully executed from initialization to destruction.
+- Verify the running Docker container
+- Verify Terraform-managed resources using Terraform State
+- Destroy the created resources using Terraform
 
 ---
 
-## Objective
+## 🛠️ Technologies Used
 
-The main objective of this task is to understand the basic concepts of **Infrastructure as Code** and learn how Terraform can be used to manage Docker infrastructure.
-
-The complete workflow followed in this project was:
-
-1. Configure Terraform with the Docker provider
-2. Initialize the Terraform working directory
-3. Format the Terraform configuration
-4. Validate the configuration
-5. Generate and review the Terraform execution plan
-6. Provision the Docker image and container
-7. Verify the running Docker container
-8. Check Terraform state
-9. Destroy the provisioned infrastructure
-10. Verify that the resources were removed successfully
+- Terraform
+- Docker
+- Nginx
+- Command Prompt / Terminal
+- Git & GitHub
 
 ---
 
-## Technologies and Tools Used
+# 🚀 Task 3 – Step-by-Step Implementation
 
-- **Terraform**
-- **Docker Desktop**
-- **Docker Engine**
-- **Docker Provider for Terraform**
-- **Nginx**
-- **Windows Command Prompt**
-- **Git**
-- **GitHub**
+## Step 1: Terraform Initialization and Validation
 
----
+First, the Terraform project directory was opened in Command Prompt.
 
-## Architecture
+The Terraform configuration was initialized using:
 
-The project follows this simple infrastructure flow:
-
-```text
-                Terraform Configuration
-                         |
-                         v
-                 Terraform Docker Provider
-                         |
-              +----------+----------+
-              |                     |
-              v                     v
-        Nginx Docker Image    Nginx Docker Container
-                                    |
-                                    v
-                           Port 8080 -> Port 80
-                                    |
-                                    v
-                              Local Machine
-Terraform acts as the Infrastructure as Code tool and communicates with Docker through the Docker provider.
-
-Project Implementation
-Step 1: Verify Docker Installation
-Before starting Terraform, Docker Desktop was installed and running.
-
-The Docker installation was verified using:
-
-docker version
-The command successfully displayed the Docker Client and Docker Server information.
-
-This confirmed that Docker was properly installed and available for Terraform to manage.
-
-Step 2: Create Terraform Configuration
-A Terraform configuration file named:
-
-main.tf
-was created.
-
-The configuration uses the Docker provider and defines two Terraform resources:
-
-Docker Nginx image
-
-Docker Nginx container
-
-The Nginx image used in this project is:
-
-nginx:alpine
-The container exposes:
-
-Host Port: 8080
-Container Port: 80
-Therefore, the Nginx application can be accessed through port 8080 on the local machine.
-
-Step 3: Initialize Terraform
-The Terraform working directory was initialized using:
-
+```bash
 terraform init
-Terraform downloaded and configured the required Docker provider.
+Terraform downloaded and installed the required Docker provider.
 
-The initialization completed successfully with:
-
-Terraform has been successfully initialized!
-This step prepared the working directory for the remaining Terraform commands.
-
-Step 4: Format Terraform Configuration
-The Terraform configuration was formatted using:
-
-terraform fmt
-This command ensures that the Terraform configuration follows the standard Terraform formatting style.
-
-Step 5: Validate Terraform Configuration
-The configuration was then validated using:
+After successful initialization, the configuration was validated using:
 
 terraform validate
-Terraform returned:
+The validation was successful, which confirmed that the Terraform configuration was syntactically correct and ready for planning.
 
-Success! The configuration is valid.
-This confirmed that the Terraform configuration had no syntax or configuration errors.
+Commands Used
+terraform init
+terraform validate
+Result
+Terraform initialized successfully.
 
-Step 6: Create Terraform Execution Plan
-Before creating the infrastructure, the expected changes were reviewed using:
+Docker provider was installed.
+
+Terraform configuration was successfully validated.
+
+Step 2: Terraform Plan
+After successful initialization and validation, the Terraform execution plan was generated using:
 
 terraform plan
-Terraform generated an execution plan showing that 2 resources would be created:
+Terraform analyzed the configuration and displayed the resources that would be created.
 
-1. docker_image.nginx
-2. docker_container.nginx
-The Docker image was:
+The plan showed:
 
-nginx:alpine
-The container was configured with the following port mapping:
+An Nginx Docker image to be created/managed.
 
-8080 -> 80
-The plan was reviewed before applying the changes.
+An Nginx Docker container to be created.
 
-Step 7: Provision Infrastructure Using Terraform
-The infrastructure was created using:
+Port mapping from the Docker container to the host.
+
+The plan displayed:
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+This means Terraform planned to create two resources.
+
+Resources
+docker_image.nginx
+docker_container.nginx
+The Nginx container was configured with port:
+
+External: 8080
+Internal: 80
+Protocol: TCP
+Step 3: Terraform Apply
+After reviewing the Terraform plan, the infrastructure was created using:
 
 terraform apply
-Terraform displayed the proposed changes and requested confirmation.
+Terraform displayed the planned actions and asked for confirmation.
 
-The deployment was approved by entering:
+The following value was entered:
 
 yes
-Terraform then successfully created both resources.
+Terraform then created the required Docker resources.
 
-The final result was:
+The following resources were created:
+
+docker_image.nginx
+docker_container.nginx
+The command completed successfully with:
 
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
-This confirmed that the Nginx Docker image and container were successfully provisioned.
+Result
+The Nginx Docker image was created and the Nginx Docker container was successfully started.
 
-Step 8: Verify Docker Container
-After Terraform completed the deployment, the running Docker containers were checked using:
+🐳 Step 4: Verify Docker Container and Terraform State
+After Terraform successfully created the resources, the running Docker containers were checked using:
 
 docker ps
-The Nginx container was displayed as running.
+The command displayed the Nginx container as running.
 
 The port mapping was also visible:
 
 0.0.0.0:8080 -> 80/tcp
-This confirmed that the container was successfully created and running.
+This confirms that port 8080 on the host was mapped to port 80 inside the Nginx container.
 
-Step 9: Check Terraform State
-Terraform keeps track of the resources it manages through its state.
-
-The Terraform state was checked using:
+The Terraform-managed resources were then checked using:
 
 terraform state list
-The following resources were listed:
+The Terraform state showed:
 
-docker_container.nginx
 docker_image.nginx
-This confirmed that Terraform was successfully tracking both Docker resources.
+docker_container.nginx
+This confirms that Terraform was tracking both Docker resources through its state.
 
-Step 10: Destroy the Infrastructure
-After verification, the infrastructure was removed using:
+🗑️ Step 5: Terraform Destroy
+After verifying the deployment, the resources were removed using:
 
 terraform destroy
-Terraform displayed the resources that would be destroyed and requested confirmation.
+Terraform displayed the resources that would be destroyed and asked for confirmation.
 
-The destruction was approved by entering:
+The following value was entered:
 
 yes
-Terraform successfully removed the resources.
+Terraform then destroyed:
 
-The final result was:
+Nginx Docker container
+
+Nginx Docker image
+
+The operation completed successfully with:
 
 Destroy complete! Resources: 2 destroyed.
-Step 11: Verify Resource Cleanup
-After destruction, the Terraform state was checked again:
+This confirms that Terraform successfully removed all resources that it had created.
 
-terraform state list
-No managed resources remained in the Terraform state.
+📂 Terraform Workflow
+The complete workflow followed in this task was:
 
-The Docker containers were also checked using:
-
-docker ps
-No running containers were displayed.
-
-This confirmed that the infrastructure created by Terraform had been successfully removed.
-
-Terraform Lifecycle Demonstrated
-The complete Terraform lifecycle implemented in this project was:
-
-Configuration
-      |
-      v
+Terraform Project
+       ↓
 terraform init
-      |
-      v
-terraform fmt
-      |
-      v
+       ↓
 terraform validate
-      |
-      v
+       ↓
 terraform plan
-      |
-      v
+       ↓
 terraform apply
-      |
-      v
-Docker Container Running
-      |
-      v
+       ↓
+Docker Image Created
+       ↓
+Docker Container Created
+       ↓
+docker ps
+       ↓
 terraform state list
-      |
-      v
+       ↓
 terraform destroy
-      |
-      v
-Infrastructure Removed
-Terraform Commands Used
-Command	Purpose
-docker version	Verify Docker installation
-terraform init	Initialize Terraform
-terraform fmt	Format Terraform configuration
-terraform validate	Validate configuration
-terraform plan	Preview infrastructure changes
-terraform apply	Create infrastructure
-docker ps	Verify running Docker containers
-terraform state list	View Terraform-managed resources
-terraform destroy	Remove infrastructure
-Resources Created
-Terraform created the following resources:
+       ↓
+Resources Removed
+📸 Screenshots
+1. Terraform Init & Validate
+The first screenshot shows successful Terraform initialization and validation.
 
-1. Docker Image
-nginx:alpine
-2. Docker Container
-Nginx container
-Port Mapping
-Host: 8080
-Container: 80
-Protocol: TCP
-Terraform State
-Terraform state is used to keep track of the infrastructure resources managed by Terraform.
+Commands:
 
-In this project, the state contained references to:
+terraform init
+terraform validate
+Result:
+
+Terraform has been successfully initialized!
+Success! The configuration is valid.
+2. Terraform Plan
+The second screenshot shows the Terraform execution plan.
+
+The plan indicates:
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+Resources planned:
 
 docker_image.nginx
 docker_container.nginx
-The state was checked using:
+3. Terraform Apply
+The third screenshot shows the successful Terraform apply operation.
+
+Terraform created the Nginx Docker image and container.
+
+Result:
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+4. Docker Container & Terraform State
+The fourth screenshot shows:
+
+docker ps
+and:
 
 terraform state list
-After running:
+The Docker container is shown as running, and Terraform state contains:
+
+docker_image.nginx
+docker_container.nginx
+5. Terraform Destroy
+The final screenshot shows the destruction of the Terraform-managed resources.
+
+Command:
 
 terraform destroy
-the resources were removed from the Terraform state.
+Result:
 
-Terraform state files are not included in the GitHub repository because state files may contain infrastructure-related information and should generally not be committed to a public repository.
+Destroy complete! Resources: 2 destroyed.
+📊 Task 3 Result
+Step	Command	Result
+1	terraform init	Successfully initialized
+2	terraform validate	Configuration valid
+3	terraform plan	2 resources planned
+4	terraform apply	2 resources created
+5	docker ps	Nginx container verified
+6	terraform state list	Resources verified in state
+7	terraform destroy	2 resources destroyed
+✅ Conclusion
+Task 3 successfully demonstrated the complete Terraform workflow for managing Docker resources.
+
+Terraform was initialized and validated first. Then an execution plan was generated and applied to create an Nginx Docker image and container. The running container and Terraform state were verified successfully. Finally, terraform destroy was used to remove the resources.
+
+Therefore, the task demonstrates the complete Infrastructure as Code (IaC) lifecycle:
+
+Initialize → Validate → Plan → Apply → Verify → Destroy
+
+**Mee PDF lo unna 5 screenshots order exactly idhe:**  
+**01 Init & Validate → 02 Plan → 03 Apply → 04 Docker Container & Terraform State → 05 Destroy.** :contentReference[oaicite:1]{index=1}
+
+GitHub README lo **screenshots kuda visible ga ravali** ante next step lo ee 5 screenshots ni separate files ga arrange chesi, README lo exact `![Screenshot](...)` lines kuda ista.
+
+terraform_task3_screenshots.pdf
